@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rep" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d4664a90-ec0f-48d0-80cb-6d5907971ae1">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="225"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<style name="Row" mode="Transparent">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style backcolor="#E6DAC3"/>
+		</conditionalStyle>
+	</style>
+	<queryString>
+		<![CDATA[SELECT SUM(entradas.stock),
+                 produto.id,produto.nome,produto.preco,produto.tipo_medicamento,entradas.caducidade FROM entradas  inner join
+                 produto  on entradas.producto_id = produto.id  &&
+                produto.nome like produto.nome
+                 GROUP BY produto.id ORDER BY produto.id ASC;]]>
+	</queryString>
+	<field name="SUM(entradas.stock)" class="java.math.BigDecimal"/>
+	<field name="id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nome" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="preco" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipo_medicamento" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="caducidade" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="Total" class="java.lang.String" calculation="Sum"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="156" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="295" y="10" width="274" height="39" forecolor="#000000" uuid="eb14ca38-a45d-4e5a-aade-dec6d9b1260c"/>
+				<box topPadding="4" leftPadding="4" bottomPadding="4" rightPadding="4"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Times New Roman" size="22" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[FARMACIA CAPOSTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="295" y="53" width="274" height="66" forecolor="#000000" backcolor="#FFFFFF" uuid="73b0152c-a79d-4069-92c8-43caa7cda991"/>
+				<textElement textAlignment="Center">
+					<font size="16" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Tel:925689681/912334018
+NIF: 2112044314
+Bairro Santa Cruz
+Lobito – Angola]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="651" y="136" width="148" height="20" uuid="c36b1fca-d9e4-45b2-b2fb-4e81e1a945bc"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PRODUTO EM ESTOQUE]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="802" height="1" uuid="cda95ece-dc4a-4f56-b156-f23dfb3d2159"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="0" y="0" width="62" height="15" forecolor="#000000" uuid="7a6fc835-8fce-4176-8960-0168d5a63902"/>
+				<textElement>
+					<font size="13"/>
+				</textElement>
+				<text><![CDATA[Codigo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="76" y="0" width="276" height="16" forecolor="#000000" uuid="78877e17-54b9-4489-a04a-4533b4d5dfa0"/>
+				<textElement>
+					<font fontName="Times New Roman" size="13"/>
+				</textElement>
+				<text><![CDATA[Produto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="365" y="0" width="158" height="15" forecolor="#000000" uuid="d48562c6-eb8c-4471-b868-a9e473202217"/>
+				<textElement>
+					<font size="13"/>
+				</textElement>
+				<text><![CDATA[Quantidade em Stock]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="549" y="0" width="186" height="15" forecolor="#000000" uuid="072bafb9-b28d-4863-bca0-4f85430cf43a"/>
+				<textElement>
+					<font size="13"/>
+				</textElement>
+				<text><![CDATA[Data de Caducidade]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="19" splitType="Stretch">
+			<textField isStretchWithOverflow="true" pattern="dd-MMM-yy">
+				<reportElement style="Detail" x="549" y="4" width="133" height="15" uuid="333a8839-d0d2-4141-88d7-88450a705d14"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{caducidade}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Detail" x="76" y="0" width="289" height="16" uuid="3d24ff1e-10a0-4fdc-ab5f-b678ad830976"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Detail" x="365" y="4" width="104" height="15" uuid="917babdf-2298-4d8b-9409-d7ea4c047509"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SUM(entradas.stock)}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Detail" x="0" y="0" width="62" height="15" uuid="7b982642-685b-4d65-a2b1-4dfada4f3479"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="19" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="-21" y="1" width="823" height="24" forecolor="#FFFFFF" backcolor="#F2EBDF" uuid="50091d99-c875-4c2e-970b-d038f1851f5d"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="773" y="1" width="40" height="20" forecolor="#736343" uuid="7c216dc6-c6d7-4f1f-a111-a80017a0da86"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Column header" x="665" y="1" width="80" height="20" forecolor="#736343" uuid="e73ccc54-10a1-4ce2-a687-d7f0fe40ae43"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Pagina "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement style="Column header" x="22" y="1" width="197" height="20" forecolor="#736343" uuid="972403f8-e60f-42fa-aef7-f270cd9881d4"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="212" y="7" width="369" height="12" forecolor="#000000" uuid="ceed3238-e772-4826-ac4f-37a46066fda3"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[RELATÓRIO PROCESSADO PELO SOFTWARE]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
